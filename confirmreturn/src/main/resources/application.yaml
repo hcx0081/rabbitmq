@@ -1,0 +1,11 @@
+# 配置RabbitMQ
+spring:
+  rabbitmq:
+    host: 192.168.106.100
+    port: 5672
+    virtual-host: /
+    username: admin
+    password: admin
+    
+    publisher-confirm-type: correlated # 开启confirm投递消息模式
+    publisher-returns: true # 开启return投递消息模式

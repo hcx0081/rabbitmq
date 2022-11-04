@@ -1,0 +1,13 @@
+# 配置RabbitMQ
+spring:
+  rabbitmq:
+    host: 192.168.106.100
+    port: 5672
+    virtual-host: /
+    username: admin
+    password: admin
+    
+    listener:
+      simple:
+        acknowledge-mode: manual # 消费者手动确认消息模式
+        prefetch: 2 # 消费者每次从队列中拉取消息的数量，直到手动确认消息完毕后，才会继续拉取消息
