@@ -12,6 +12,8 @@ import java.util.concurrent.TimeoutException;
  * {@code @Description:} 生产者
  */
 public class Send {
+    private static final String QUEUE_NAME = "Work Queues";
+    
     public static void main(String[] args) throws IOException, TimeoutException {
         // 创建连接工厂
         ConnectionFactory factory = new ConnectionFactory();
@@ -26,29 +28,12 @@ public class Send {
         // 创建Channel
         Channel channel = connection.createChannel();
         // 创建队列
-        // 参数：String queue, boolean durable, boolean exclusive, boolean autoDelete, Map<String, Object> arguments
-        /*
-         * queue：队列名称
-         * durable：是否消息持久化
-         * exclusive：是否排他连接，即只能在同一连接中访问该队列，
-         *            只有首次声明它的连接可以访问，其他连接不可以访问，并在该连接断开时自动删除，无论消息是否持久化
-         * autoDelete：队列不再使用时是否自动删除，自动删除的前提为：至少有一个消费者连接到该队列，没有消费者连接则不会自动删除
-         * arguments：参数，可以设置队列的其他参数，例如设置存活时间
-         */
-        String queueName = "Work queues";
-        channel.queueDeclare(queueName, false, false, true, null);
+        channel.queueDeclare(QUEUE_NAME, false, false, true, null);
         
         // 发送消息
-        // 参数：String exchange, String routingKey, BasicProperties props, byte[] body
-        /*
-         * exchange：交换机名称，如果设置为""将使用RabbitMQ的默认交换机
-         * routingKey：路由键，交换机会将消息分发到与其绑定的符合指定路由键的队列
-         * props：消息属性
-         * body：消息内容
-         *  */
         for (int i = 0; i < 10; i++) {
             String mes = "hello" + i;
-            channel.basicPublish("", queueName, null, mes.getBytes(StandardCharsets.UTF_8));
+            channel.basicPublish("", QUEUE_NAME, null, mes.getBytes(StandardCharsets.UTF_8));
         }
         // 释放资源
         channel.close();
