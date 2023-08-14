@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
 
 /**
- * @Description: 生产者
+ * {@code @Description:} 生产者
  */
 public class Send {
     public static void main(String[] args) throws IOException, TimeoutException {

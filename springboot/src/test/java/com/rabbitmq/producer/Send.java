@@ -6,7 +6,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 /**
- * @Description: 生产者
+ * {@code @Description:} 生产者
  */
 @SpringBootTest
 class Send {

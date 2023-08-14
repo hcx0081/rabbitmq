@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 /**
- * @Description: 消费者
+ * {@code @Description:} 消费者
  */
 public class Recv2 {
     public static void main(String[] args) throws IOException, TimeoutException {

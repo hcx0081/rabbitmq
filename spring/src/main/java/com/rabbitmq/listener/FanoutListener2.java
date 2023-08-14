@@ -4,7 +4,7 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
 
 /**
- * @Description:
+ * {@code @Description:}
  */
 public class FanoutListener2 implements MessageListener {
     // 接收一次消息就自动调用一次
