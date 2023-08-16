@@ -14,7 +14,7 @@ class Sender {
     private RabbitTemplate rabbitTemplate;
     
     @Test
-    void testConfirm() {
+    void confirmTest() {
         // 定义回调方法
         rabbitTemplate.setConfirmCallback(new RabbitTemplate.ConfirmCallback() {
             /**
@@ -38,8 +38,7 @@ class Sender {
     }
     
     @Test
-    void testReturn() {
-        
+    void returnTest() {
         /* 设置交换机处理失败消息的模式 */
         rabbitTemplate.setMandatory(true);// 新版本不开启也可以执行下面的回调方法
         

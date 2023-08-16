@@ -30,7 +30,7 @@ public class Recver2 {
         // channel.queueDeclare(QUEUE_NAME, false, false, true, null);// 可以不用编写，因为生产者已经创建了该队列
         
         // 接收消息
-        channel.basicConsume(QUEUE_NAME, false, "消费者1标识",
+        channel.basicConsume(QUEUE_NAME, false, "消费者2标识",
                 (consumerTag, message) -> {
                     System.out.println("传递标识：" + message.getEnvelope().getDeliveryTag() + "\n" + "接收的消息：" + new String(message.getBody()));
                     
