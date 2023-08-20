@@ -1,4 +1,4 @@
-package com.rabbitmq.producer;
+package com.rabbitmq;
 
 import com.rabbitmq.config.RabbitMQConfig;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,9 +8,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-/**
- * {@code @Description:} 生产者
- */
 @SpringBootTest
 class Sender {
     @Autowired
@@ -18,17 +15,16 @@ class Sender {
     
     @BeforeEach
     @Test
-    void sendTest() throws InterruptedException {
-        // rabbitTemplate.convertAndSend(RabbitMQConfig.TOPIC_EXCHANGE_NORMAL_NAME, "order.normal", "订单信息");
-        // 优化
-        rabbitTemplate.convertAndSend(RabbitMQConfig.TOPIC_EXCHANGE_NORMAL_NAME, "order.normal", "订单信息1", message -> {
+    void sendTest() {
+        // 基于插件
+        rabbitTemplate.convertAndSend(RabbitMQConfig.X_EXCHANGE_DELAYED_NAME, "order.info", "订单信息1", message -> {
             MessageProperties prop = message.getMessageProperties();
-            prop.setExpiration("10000");// 设置消息的有效时长
+            prop.setDelay(10000);// 3.设置消息的延迟时长
             return message;
         });
-        rabbitTemplate.convertAndSend(RabbitMQConfig.TOPIC_EXCHANGE_NORMAL_NAME, "order.normal", "订单信息2", message -> {
+        rabbitTemplate.convertAndSend(RabbitMQConfig.X_EXCHANGE_DELAYED_NAME, "order.info", "订单信息2", message -> {
             MessageProperties prop = message.getMessageProperties();
-            prop.setExpiration("1000");// 设置消息的有效时长
+            prop.setDelay(1000);// 3.设置消息的延迟时长
             return message;
         });
     }

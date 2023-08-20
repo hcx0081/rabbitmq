@@ -9,15 +9,14 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.rabbitmq</groupId>
-    <artifactId>ack-springboot</artifactId>
+    <artifactId>delay-plugins</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ack-springboot</name>
-    <description>ack-springboot</description>
+    <name>delay-plugins</name>
+    <description>delay-plugins</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
-        <!-- RabbitMQ -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>

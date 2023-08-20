@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfig {
     public static final String TOPIC_EXCHANGE_NORMAL_NAME = "springboot_topic_exchange_normal";
     public static final String TOPIC_QUEUE_NORMAL_NAME = "springboot_topic_queue_normal";
+    
     public static final String TOPIC_EXCHANGE_DLX_NAME = "springboot_topic_exchange_dlx";
     public static final String TOPIC_QUEUE_DLX_NAME = "springboot_topic_queue_dlx";
     
@@ -25,7 +26,7 @@ public class RabbitMQConfig {
     @Bean
     public Queue normalQueue() {
         return QueueBuilder.nonDurable(TOPIC_QUEUE_NORMAL_NAME)
-                           .ttl(10000)// 设置队列中的所有消息的有效时长
+                           // .ttl(10000)// 设置队列中的所有消息的有效时长
                            .deadLetterExchange(TOPIC_EXCHANGE_DLX_NAME)// 绑定死信交换机
                            .deadLetterRoutingKey("repo.normal")// 指定死信路由键
                            .build();
