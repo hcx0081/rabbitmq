@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class Recver {
     // 监听指定队列，接收一次消息就自动调用一次
-    @RabbitListener(queues = {RabbitMQConfig.TOPIC_QUEUE})
-    public void listenerQueue(Message message) {
+    @RabbitListener(queues = {RabbitMQConfig.TOPIC_QUEUE_NAME})
+    public void listenQueue(Message message) {
         System.out.println(new String(message.getBody()));
     }
 }

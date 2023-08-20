@@ -1,6 +1,8 @@
 package com.rabbitmq.consumer;
 
-import com.rabbitmq.client.*;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -9,7 +11,7 @@ import java.util.concurrent.TimeoutException;
  * {@code @Description:} 消费者
  */
 public class Recver2 {
-    private static final String QUEUE_NAME_2 = "Publish/Subscribe-2";
+    private static final String QUEUE_NAME = "Ack Queues";
     
     public static void main(String[] args) throws IOException, TimeoutException {
         // 创建连接工厂
@@ -26,20 +28,22 @@ public class Recver2 {
         Channel channel = connection.createChannel();
         
         // 创建队列
-        // channel.queueDeclare(QUEUE_NAME_2, false, false, true, null);// 可以不用编写，因为生产者已经创建了该队列
+        // channel.queueDeclare(QUEUE_NAME, false, false, true, null);// 可以不用编写，因为生产者已经创建了该队列
         
         // 接收消息
-        channel.basicConsume(QUEUE_NAME_2, true, new DefaultConsumer(channel) {
-            // 回调方法，接收一次消息就自动调用一次
-            @Override
-            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                System.out.println("consumerTag：" + consumerTag);
-                System.out.println("exchange：" + envelope.getExchange());
-                System.out.println("routingKey：" + envelope.getRoutingKey());
-                System.out.println("body：" + new String(body));
-                System.out.println("保存到数据库...");
-            }
-        });
+        channel.basicConsume(QUEUE_NAME, false, "消费者2标识",
+                (consumerTag, message) -> {
+                    System.out.println("传递标识：" + message.getEnvelope().getDeliveryTag() + "\n" + "接收的消息：" + new String(message.getBody()));
+                    
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    // 手动确认消息
+                    channel.basicAck(message.getEnvelope().getDeliveryTag(), false);
+                },
+                (consumerTag) -> {});
         // 不要释放资源，而是需要一直等待接收消息
     }
 }

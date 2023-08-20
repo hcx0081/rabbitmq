@@ -22,10 +22,11 @@ public class Recver {
         // factory.setPassword("admin");// 密码，默认为guest
         // 创建连接
         Connection connection = factory.newConnection();
-        // 创建Channel
+        // 创建通道
         Channel channel = connection.createChannel();
+        
         // 创建队列
-        // channel.queueDeclare("Hello World", false, false, true, null);// 可以不用编写，因为生产者已经创建了该队列
+        // channel.queueDeclare(QUEUE_NAME, false, false, true, null);// 可以不用编写，因为生产者已经创建了该队列
         
         channel.basicConsume(QUEUE_NAME, true, "消费者标识", new DefaultConsumer(channel) {
             // 回调方法，接收一次消息就自动调用一次

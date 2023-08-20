@@ -15,7 +15,7 @@ class Sender {
     private RabbitTemplate rabbitTemplate;
     
     @Test
-    void testSend() {
-        rabbitTemplate.convertAndSend(RabbitMQConfig.TOPIC_EXCHANGE, "springboot.hello", "hello");
+    void sendTest() {
+        rabbitTemplate.convertAndSend(RabbitMQConfig.TOPIC_EXCHANGE_NAME, "springboot.hello", "hello");
     }
 }

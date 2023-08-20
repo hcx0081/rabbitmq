@@ -1,18 +1,17 @@
-package com.rabbitmq.producer;
+package com.rabbitmq.consumer.limit;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
 
 /**
- * {@code @Description:} 生产者
+ * {@code @Description:} 消费者
  */
-public class Sender {
-    private static final String QUEUE_NAME = "Hello World";
+public class Recver1 {
+    private static final String NORMAL_QUEUE_NAME = "normal_queue";
     
     public static void main(String[] args) throws IOException, TimeoutException {
         // 创建连接工厂
@@ -29,14 +28,14 @@ public class Sender {
         Channel channel = connection.createChannel();
         
         // 创建队列
-        channel.queueDeclare(QUEUE_NAME, false, false, true, null);
+        // channel.queueDeclare(NORMAL_QUEUE_NAME, false, false, true, null);// 可以不用编写，因为生产者已经创建了该队列
         
-        // 发送消息
-        channel.basicPublish("", QUEUE_NAME, null, "hello".getBytes(StandardCharsets.UTF_8));
-        System.out.println("消息发送完毕");
-        
-        // 释放资源
-        channel.close();
-        connection.close();
+        // 接收正常队列的消息
+        channel.basicConsume(NORMAL_QUEUE_NAME, true, "消费者1标识",
+                (consumerTag, message) -> {
+                    System.out.println("传递标识：" + message.getEnvelope().getDeliveryTag() + "\n" + "接收的消息：" + new String(message.getBody()));
+                },
+                (consumerTag) -> {});
+        // 不要释放资源，而是需要一直等待接收消息
     }
 }

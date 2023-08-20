@@ -1,4 +1,4 @@
-package rabbitmq.consumer;
+package com.rabbitmq.consumer.limit;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -10,8 +10,8 @@ import java.util.concurrent.TimeoutException;
 /**
  * {@code @Description:} 消费者
  */
-public class Recver1 {
-    private static final String QUEUE_NAME = "Ack Queues";
+public class Recver2 {
+    private static final String DLX_QUEUE_NAME = "dlx_queue";
     
     public static void main(String[] args) throws IOException, TimeoutException {
         // 创建连接工厂
@@ -24,23 +24,16 @@ public class Recver1 {
         // factory.setPassword("admin");// 密码，默认为guest
         // 创建连接
         Connection connection = factory.newConnection();
-        // 创建Channel
+        // 创建通道
         Channel channel = connection.createChannel();
-        // 创建队列
-        // channel.queueDeclare(QUEUE_NAME, false, false, true, null);// 可以不用编写，因为生产者已经创建了该队列
         
-        // 接收消息
-        channel.basicConsume(QUEUE_NAME, false, "消费者1标识",
+        // 创建队列
+        // channel.queueDeclare(DLX_QUEUE_NAME, false, false, true, null);// 可以不用编写，因为生产者已经创建了该队列
+        
+        // 接收死信队列的消息
+        channel.basicConsume(DLX_QUEUE_NAME, true, "消费者2标识",
                 (consumerTag, message) -> {
                     System.out.println("传递标识：" + message.getEnvelope().getDeliveryTag() + "\n" + "接收的消息：" + new String(message.getBody()));
-                    
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    // 手动确认消息
-                    channel.basicAck(message.getEnvelope().getDeliveryTag(), false);
                 },
                 (consumerTag) -> {});
         // 不要释放资源，而是需要一直等待接收消息

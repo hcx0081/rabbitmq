@@ -22,8 +22,9 @@ public class Recver2 {
         // factory.setPassword("admin");// 密码，默认为guest
         // 创建连接
         Connection connection = factory.newConnection();
-        // 创建Channel
+        // 创建通道
         Channel channel = connection.createChannel();
+        
         // 创建队列
         // channel.queueDeclare(QUEUE_NAME, false, false, true, null);// 可以不用编写，因为生产者已经创建了该队列
         

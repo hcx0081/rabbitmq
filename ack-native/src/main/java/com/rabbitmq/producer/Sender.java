@@ -6,13 +6,14 @@ import com.rabbitmq.client.ConnectionFactory;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 import java.util.concurrent.TimeoutException;
 
 /**
  * {@code @Description:} 生产者
  */
 public class Sender {
-    private static final String QUEUE_NAME = "Hello World";
+    private static final String QUEUE_NAME = "Ack Queues";
     
     public static void main(String[] args) throws IOException, TimeoutException {
         // 创建连接工厂
@@ -32,11 +33,12 @@ public class Sender {
         channel.queueDeclare(QUEUE_NAME, false, false, true, null);
         
         // 发送消息
-        channel.basicPublish("", QUEUE_NAME, null, "hello".getBytes(StandardCharsets.UTF_8));
-        System.out.println("消息发送完毕");
-        
-        // 释放资源
-        channel.close();
-        connection.close();
+        Scanner scanner = new Scanner(System.in);
+        String next;
+        while (true) {
+            next = scanner.nextLine();
+            channel.basicPublish("", QUEUE_NAME, null, next.getBytes(StandardCharsets.UTF_8));
+            System.out.println("消息发送完毕");
+        }
     }
 }

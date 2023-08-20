@@ -10,19 +10,19 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class RabbitMQConfig {
-    public static final String TOPIC_EXCHANGE = "springboot_topic_exchange";
-    public static final String TOPIC_QUEUE = "springboot_topic_queue";
+    public static final String TOPIC_EXCHANGE_NAME = "springboot_topic_exchange";
+    public static final String TOPIC_QUEUE_NAME = "springboot_topic_queue";
     
     // 创建交换机
     @Bean
     public Exchange topicExchange() {
-        return ExchangeBuilder.topicExchange(TOPIC_EXCHANGE).durable(false).build();
+        return ExchangeBuilder.topicExchange(TOPIC_EXCHANGE_NAME).durable(false).build();
     }
     
     // 创建队列
     @Bean
     public Queue topicQueue() {
-        return QueueBuilder.nonDurable(TOPIC_QUEUE).autoDelete().build();
+        return QueueBuilder.nonDurable(TOPIC_QUEUE_NAME).autoDelete().build();
     }
     
     // 绑定队列到交换机
