@@ -32,9 +32,9 @@ public class Sender {
         Channel channel = connection.createChannel();
         
         // 创建正常交换机
-        channel.exchangeDeclare(NORMAL_EXCHANGE_NAME, BuiltinExchangeType.DIRECT, false, false, false, null);
+        channel.exchangeDeclare(NORMAL_EXCHANGE_NAME, BuiltinExchangeType.DIRECT, false, true, false, null);
         // 创建死信交换机
-        channel.exchangeDeclare(DLX_EXCHANGE_NAME, BuiltinExchangeType.DIRECT, false, false, false, null);
+        channel.exchangeDeclare(DLX_EXCHANGE_NAME, BuiltinExchangeType.DIRECT, false, true, false, null);
         
         // 创建正常队列
         HashMap<String, Object> map = new HashMap<>();

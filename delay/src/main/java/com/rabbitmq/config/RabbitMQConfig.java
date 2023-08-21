@@ -19,13 +19,14 @@ public class RabbitMQConfig {
     // 创建正常交换机
     @Bean
     public Exchange normalExchange() {
-        return ExchangeBuilder.topicExchange(TOPIC_EXCHANGE_NORMAL_NAME).durable(false).build();
+        return ExchangeBuilder.topicExchange(TOPIC_EXCHANGE_NORMAL_NAME).durable(false).autoDelete().build();
     }
     
     // 创建正常队列
     @Bean
     public Queue normalQueue() {
         return QueueBuilder.nonDurable(TOPIC_QUEUE_NORMAL_NAME)
+                           .autoDelete()
                            // .ttl(10000)// 设置队列中的所有消息的有效时长
                            .deadLetterExchange(TOPIC_EXCHANGE_DLX_NAME)// 绑定死信交换机
                            .deadLetterRoutingKey("repo.normal")// 指定死信路由键
@@ -35,13 +36,13 @@ public class RabbitMQConfig {
     // 创建死信交换机
     @Bean
     public Exchange dlxExchange() {
-        return ExchangeBuilder.topicExchange(TOPIC_EXCHANGE_DLX_NAME).durable(false).build();
+        return ExchangeBuilder.topicExchange(TOPIC_EXCHANGE_DLX_NAME).durable(false).autoDelete().build();
     }
     
     // 创建死信队列
     @Bean
     public Queue dlxQueue() {
-        return QueueBuilder.nonDurable(TOPIC_QUEUE_DLX_NAME).build();
+        return QueueBuilder.nonDurable(TOPIC_QUEUE_DLX_NAME).autoDelete().build();
     }
     
     // 绑定正常队列到正常交换机

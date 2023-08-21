@@ -10,24 +10,24 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class RabbitMQConfig {
-    public static final String DIRECT_EXCHANGE = "springboot_direct_exchange";
-    public static final String DIRECT_QUEUE = "springboot_direct_queue";
+    public static final String DIRECT_EXCHANGE_NAME = "springboot_direct_exchange";
+    public static final String DIRECT_QUEUE_NAME = "springboot_direct_queue";
     
     // 创建交换机
     @Bean
     public Exchange exchange() {
-        return ExchangeBuilder.directExchange(DIRECT_EXCHANGE).durable(false).build();
+        return ExchangeBuilder.directExchange(DIRECT_EXCHANGE_NAME).durable(false).autoDelete().build();
     }
     
     // 创建队列
     @Bean
     public Queue queue() {
-        return QueueBuilder.nonDurable(DIRECT_QUEUE).autoDelete().build();
+        return QueueBuilder.nonDurable(DIRECT_QUEUE_NAME).autoDelete().build();
     }
     
     // 绑定队列到交换机
     @Bean
     public Binding binding(@Qualifier("queue") Queue queue, @Qualifier("exchange") Exchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with("").noargs();
+        return BindingBuilder.bind(queue).to(exchange).with("这是正确的路由键").noargs();
     }
 }

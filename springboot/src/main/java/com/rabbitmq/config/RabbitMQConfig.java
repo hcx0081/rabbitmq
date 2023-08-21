@@ -16,7 +16,7 @@ public class RabbitMQConfig {
     // 创建交换机
     @Bean
     public Exchange topicExchange() {
-        return ExchangeBuilder.topicExchange(TOPIC_EXCHANGE_NAME).durable(false).build();
+        return ExchangeBuilder.topicExchange(TOPIC_EXCHANGE_NAME).durable(false).autoDelete().build();
     }
     
     // 创建队列

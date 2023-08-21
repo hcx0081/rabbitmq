@@ -39,7 +39,7 @@ public class Sender {
         // 创建队列
         channel.queueDeclare(QUEUE_NAME, false, false, true, null);
         
-        // 开启发送确认
+        // 开启消息确认模式
         channel.confirmSelect();
         
         // 发送消息
@@ -79,7 +79,7 @@ public class Sender {
         // 创建队列
         channel.queueDeclare(QUEUE_NAME, false, false, true, null);
         
-        // 开启发送确认
+        // 开启消息确认模式
         channel.confirmSelect();
         
         // 发送消息
@@ -122,7 +122,7 @@ public class Sender {
         // 创建队列
         channel.queueDeclare(QUEUE_NAME, false, false, true, null);
         
-        // 开启发送确认
+        // 开启消息确认模式
         channel.confirmSelect();
         
         ConfirmCallback ackCallback = (deliveryTag, multiple) -> {

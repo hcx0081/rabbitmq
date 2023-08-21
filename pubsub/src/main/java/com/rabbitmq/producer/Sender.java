@@ -33,7 +33,7 @@ public class Sender {
         Channel channel = connection.createChannel();
         
         // 创建交换机
-        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.FANOUT, false, false, false, null);
+        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.FANOUT, false, true, false, null);
         
         // 创建队列
         channel.queueDeclare(QUEUE_NAME_1, false, false, true, null);

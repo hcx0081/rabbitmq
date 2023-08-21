@@ -16,18 +16,19 @@ public class RabbitMQConfig {
     // 创建交换机
     @Bean
     public Exchange exchange() {
-        return ExchangeBuilder.directExchange(DIRECT_EXCHANGE).durable(false).build();
+        return ExchangeBuilder.directExchange(DIRECT_EXCHANGE).durable(false).autoDelete().build();
     }
     
     // 创建队列
     @Bean
     public Queue queue() {
         return QueueBuilder.nonDurable(DIRECT_QUEUE)
-                // 设置队列中所有消息的有效期，单位为毫秒（x-message-ttl）
-                .ttl(100000)
-                // 设置队列的有效期，单位为毫秒（x-expires）
-                .expires(50000)
-                .build();
+                           .autoDelete()
+                           // 设置队列中所有消息的有效期，单位为毫秒（x-message-ttl）
+                           .ttl(100000)
+                           // 设置队列的有效期，单位为毫秒（x-expires）
+                           .expires(50000)
+                           .build();
     }
     
     // 绑定队列到交换机

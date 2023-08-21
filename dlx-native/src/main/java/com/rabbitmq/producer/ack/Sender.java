@@ -35,17 +35,17 @@ public class Sender {
         Channel channel = connection.createChannel();
         
         // 创建正常交换机
-        channel.exchangeDeclare(NORMAL_EXCHANGE_NAME, BuiltinExchangeType.DIRECT, false, false, false, null);
+        channel.exchangeDeclare(NORMAL_EXCHANGE_NAME, BuiltinExchangeType.DIRECT, false, true, false, null);
         // 创建死信交换机
-        channel.exchangeDeclare(DLX_EXCHANGE_NAME, BuiltinExchangeType.DIRECT, false, false, false, null);
+        channel.exchangeDeclare(DLX_EXCHANGE_NAME, BuiltinExchangeType.DIRECT, false, true, false, null);
         
         // 创建正常队列
         HashMap<String, Object> map = new HashMap<>();
         map.put("x-dead-letter-exchange", DLX_EXCHANGE_NAME);// 绑定死信交换机
         map.put("x-dead-letter-routing-key", "dlx-routing-key");// 指定死信路由键
-        channel.queueDeclare(NORMAL_QUEUE_NAME, false, false, false, map);
+        channel.queueDeclare(NORMAL_QUEUE_NAME, false, false, true, map);
         // 创建死信队列
-        channel.queueDeclare(DLX_QUEUE_NAME, false, false, false, null);
+        channel.queueDeclare(DLX_QUEUE_NAME, false, false, true, null);
         
         // 绑定正常队列到正常交换机
         channel.queueBind(NORMAL_QUEUE_NAME, NORMAL_EXCHANGE_NAME, "normal-routing-key");

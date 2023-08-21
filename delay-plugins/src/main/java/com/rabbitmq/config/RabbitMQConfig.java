@@ -22,13 +22,13 @@ public class RabbitMQConfig {
         Map<String, Object> args = new HashMap<>();
         args.put("x-delayed-type", "direct");// 1.设置延迟交换机的类型
         // 2.创建延迟交换机
-        return new CustomExchange(X_EXCHANGE_DELAYED_NAME, "x-delayed-message", true, false, args);
+        return new CustomExchange(X_EXCHANGE_DELAYED_NAME, "x-delayed-message", true, true, args);
     }
     
     // 创建正常队列
     @Bean
     public Queue delayedQueue() {
-        return QueueBuilder.nonDurable(X_QUEUE_DELAYED_NAME).build();
+        return QueueBuilder.nonDurable(X_QUEUE_DELAYED_NAME).autoDelete().build();
     }
     
     // 绑定正常队列到延迟交换机

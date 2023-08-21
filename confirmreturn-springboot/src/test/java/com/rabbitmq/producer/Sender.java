@@ -17,36 +17,27 @@ class Sender {
     void confirmTest() {
         // 定义回调方法
         rabbitTemplate.setConfirmCallback(new RabbitTemplate.ConfirmCallback() {
-            /**
-             * @param correlationData 相关配置信息
-             * @param ack 交换机是否成功接收到生产者发布的消息
-             * @param cause 失败原因
-             */
             @Override
             public void confirm(CorrelationData correlationData, boolean ack, String cause) {
                 System.out.println("执行confirm()方法...");
+                System.out.println(correlationData.getId());
                 if (ack) {
-                    System.out.println("成功接收雄安锡：" + cause);
+                    System.out.println("发送成功：" + cause);
                 } else {
-                    System.out.println("接收失败：" + cause);
-                    /* 进行处理，让消息再次发送 */
+                    System.out.println("发送失败：" + cause);
+                    /* 进行处理，再次发送消息 */
                 }
             }
         });
         // 发送消息
-        rabbitTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, "", "confirm");
+        rabbitTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE_NAME, "这是正确的路由键", "confirm", new CorrelationData("id"));
+        // rabbitTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE_NAME + "这是错误的交换机", "这是正确的路由键", "confirm", new CorrelationData("id"));
     }
     
     @Test
     void returnTest() {
-        /* 设置交换机处理失败消息的模式 */
-        rabbitTemplate.setMandatory(true);// 新版本不开启也可以执行下面的回调方法
-        
         // 定义回调方法
         rabbitTemplate.setReturnsCallback(new RabbitTemplate.ReturnsCallback() {
-            /**
-             * @param returned 返回的消息
-             */
             @Override
             public void returnedMessage(ReturnedMessage returned) {
                 System.out.println("执行returnedMessage()方法...");
@@ -57,7 +48,7 @@ class Sender {
                 System.out.println("错误信息：" + returned.getReplyText());
             }
         });
-        // 发送消息，发送错误的路由键
-        rabbitTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, "这是错误的路由键", "return");
+        // 发送消息，指定错误的路由键
+        rabbitTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE_NAME, "这是错误的路由键", "return");
     }
 }
