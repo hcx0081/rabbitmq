@@ -6,7 +6,3 @@ spring:
     virtual-host: /
     #    username: admin
     #    password: admin
-    
-    listener:
-      simple:
-        acknowledge-mode: manual # 消费者手动确认消息模式
