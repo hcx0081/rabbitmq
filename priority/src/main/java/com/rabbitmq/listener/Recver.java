@@ -6,7 +6,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 /**
- * {@code @Description:} 消费者
+ * {@code @description:} 消费者
  */
 @Component
 public class Recver {
