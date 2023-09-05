@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.concurrent.TimeoutException;
 
 /**
- * {@code @Description:} 生产者
+ * {@code @description:} 生产者
  */
 public class Sender {
     private static final String NORMAL_EXCHANGE_NAME = "normal_exchange";

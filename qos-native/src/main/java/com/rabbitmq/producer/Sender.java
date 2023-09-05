@@ -10,7 +10,7 @@ import java.util.Scanner;
 import java.util.concurrent.TimeoutException;
 
 /**
- * {@code @Description:} 生产者
+ * {@code @description:} 生产者
  */
 public class Sender {
     private static final String QUEUE_NAME = "Qos Queues";

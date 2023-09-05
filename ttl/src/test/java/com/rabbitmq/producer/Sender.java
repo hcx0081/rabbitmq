@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * {@code @Description:} 生产者
+ * {@code @description:} 生产者
  */
 @SpringBootTest
 class Sender {

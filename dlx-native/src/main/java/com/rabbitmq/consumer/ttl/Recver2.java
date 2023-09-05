@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 /**
- * {@code @Description:} 消费者
+ * {@code @description:} 消费者
  */
 public class Recver2 {
     private static final String DLX_QUEUE_NAME = "dlx_queue";

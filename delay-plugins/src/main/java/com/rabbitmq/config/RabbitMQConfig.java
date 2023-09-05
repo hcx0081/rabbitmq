@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * {@code @Description:} RabbitMQ配置类
+ * {@code @description:} RabbitMQ配置类
  */
 @Configuration
 public class RabbitMQConfig {

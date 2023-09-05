@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
 
 /**
- * {@code @Description:} 生产者
+ * {@code @description:} 生产者
  */
 public class Sender {
     private static final String EXCHANGE_NAME = "Topic Exchange";

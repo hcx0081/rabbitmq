@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 /**
- * {@code @Description:} 消费者
+ * {@code @description:} 消费者
  */
 public class Recver1 {
     private static final String NORMAL_QUEUE_NAME = "normal_queue";

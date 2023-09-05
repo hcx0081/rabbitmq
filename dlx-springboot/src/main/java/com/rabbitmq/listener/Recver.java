@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
- * {@code @Description:} 消费者
+ * {@code @description:} 消费者
  */
 @Component
 public class Recver {
